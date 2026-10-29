@@ -1,0 +1,70 @@
+[package]
+name = "rok-tools-cli"
+description = "The rok-tools command line: every rok-tools Tool as a subcommand, plus the Payload Runner"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+readme = "../../README.md"
+keywords = ["cli", "tools", "refactor", "loc", "automation"]
+categories = ["command-line-utilities", "development-tools"]
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "rok-tools"
+path = "src/main.rs"
+
+[features]
+default = ["full", "runner"]
+full = ["rok-tools/full"]
+runner = ["rok-tools/runner"]
+# Groups and single Tools, for slimmer builds (`--no-default-features --features loc`).
+fs = ["rok-tools/fs"]
+search = ["rok-tools/search"]
+code = ["rok-tools/code"]
+template = ["rok-tools/template"]
+vcs = ["rok-tools/vcs"]
+read = ["rok-tools/read"]
+write = ["rok-tools/write"]
+patch = ["rok-tools/patch"]
+mv = ["rok-tools/mv"]
+cp = ["rok-tools/cp"]
+rm = ["rok-tools/rm"]
+mkdir = ["rok-tools/mkdir"]
+snapshot = ["rok-tools/snapshot"]
+restore = ["rok-tools/restore"]
+grep = ["rok-tools/grep"]
+replace = ["rok-tools/replace"]
+scan = ["rok-tools/scan"]
+summarize = ["rok-tools/summarize"]
+extract = ["rok-tools/extract"]
+diff = ["rok-tools/diff"]
+lint = ["rok-tools/lint"]
+import = ["rok-tools/import"]
+refactor = ["rok-tools/refactor"]
+deps = ["rok-tools/deps"]
+boilerplate = ["rok-tools/boilerplate"]
+dead-code = ["rok-tools/dead-code"]
+loc = ["rok-tools/loc"]
+git = ["rok-tools/git"]
+bash = ["rok-tools/bash"]
+http = ["rok-tools/http"]
+
+[dependencies]
+rok-tools = { workspace = true, features = ["cli", "config"] }
+clap = { workspace = true }
+serde_json = { workspace = true }
+
+[dev-dependencies]
+assert_cmd = "2"
+predicates = "3"
+tempfile = "3"
+clap_complete = "4"
+
+[[example]]
+name = "completions"

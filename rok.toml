@@ -1,0 +1,3 @@
+# rok-tools dogfoods its own Line limit (ADR 0001 scope; `rok-tools loc --check`).
+[tools.loc]
+max_lines = 600
