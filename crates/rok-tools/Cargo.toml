@@ -1,0 +1,99 @@
+[package]
+name = "rok-tools"
+description = "Feature-gated developer tools (search, edit, scan, refactor, loc, ...) as plain Rust functions"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+readme = "../../README.md"
+keywords = ["tools", "refactor", "grep", "loc", "automation"]
+categories = ["development-tools", "filesystem"]
+
+[lints]
+workspace = true
+
+[features]
+default = []
+
+# ── Tool groups ──────────────────────────────────────────────────────────────
+fs = ["read", "write", "patch", "mv", "cp", "rm", "mkdir", "snapshot", "restore"]
+search = ["grep", "replace", "scan"]
+code = ["summarize", "extract", "diff", "lint", "import", "refactor", "deps", "boilerplate", "dead-code", "loc"]
+template = ["dep:tera"]
+vcs = ["git"]
+# Every Tool, including the opt-in `bash` and `http`. `runner` and `config` stay separate.
+full = ["fs", "search", "code", "template", "vcs", "bash", "http"]
+
+# ── Tools ────────────────────────────────────────────────────────────────────
+read = ["_walk", "dep:chrono"]
+write = ["dep:similar"]
+patch = ["dep:similar"]
+mv = []
+cp = []
+rm = []
+mkdir = []
+snapshot = ["_archive"]
+restore = ["_archive"]
+grep = ["_walk", "dep:regex"]
+replace = ["_walk", "dep:regex", "dep:rayon"]
+scan = ["_walk", "dep:regex"]
+summarize = ["dep:regex", "dep:chrono"]
+extract = ["dep:toml", "dep:serde_yaml"]
+diff = ["dep:similar"]
+lint = []
+import = []
+refactor = ["_walk", "dep:regex", "dep:rayon"]
+deps = ["_walk", "dep:regex"]
+boilerplate = []
+dead-code = ["_walk", "dep:regex"]
+loc = ["_walk"]
+git = []
+# Opt-in only: runs arbitrary shell commands.
+bash = []
+# Opt-in only: makes network calls.
+http = ["dep:reqwest"]
+
+# ── Non-tool features ────────────────────────────────────────────────────────
+# The Payload Runner (control flow, cache, checkpoints, history).
+runner = ["dep:chrono", "dep:rayon", "dep:regex"]
+# `ToolsConfig::load`: `[tools.<tool>]` sections of `rok.toml`.
+config = ["dep:toml"]
+# clap derives on every options struct, used by rok-tools-cli.
+cli = ["dep:clap"]
+
+# Internal helpers.
+_walk = ["dep:ignore", "dep:globset"]
+_archive = ["dep:tar", "dep:flate2"]
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = "2"
+clap = { workspace = true, optional = true }
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"], optional = true }
+flate2 = { version = "1", optional = true }
+globset = { version = "0.4", optional = true }
+ignore = { version = "0.4", optional = true }
+rayon = { version = "1", optional = true }
+regex = { version = "1", optional = true }
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "rustls-tls"], optional = true }
+serde_yaml = { version = "0.9", optional = true }
+similar = { version = "2", optional = true }
+tar = { version = "0.4", optional = true }
+tera = { version = "1", optional = true }
+toml = { version = "1", default-features = false, features = ["parse", "serde"], optional = true }
+
+[dev-dependencies]
+tempfile = "3"
+criterion = { version = "0.5", default-features = false }
+
+[[bench]]
+name = "tools"
+harness = false
+required-features = ["full", "runner"]
+
+[package.metadata.docs.rs]
+all-features = true
