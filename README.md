@@ -2,7 +2,8 @@
 
 Developer tools (search, edit, scan, refactor, count lines of code, …) as
 plain Rust functions you import one at a time, and as a command line:
-the standalone `rok-tools` binary or `rok tools …` inside rok-data's `rok`.
+the standalone `rok-tools` binary or `rok tools …` in the toolchain's `rok`
+([rok-v2](https://github.com/ateeq1999/rok-v2), `cargo install rok-cli`).
 
 ## As a library
 
@@ -65,7 +66,8 @@ rok-tools refactor old_name new_name src --dry-run
 rok-tools run -f payload.json        # run a JSON Payload of Steps
 ```
 
-The same commands work as `rok tools <tool>` in rok-data's `rok` binary.
+The same commands work as `rok tools <tool>` in rok-v2's `rok`, which links
+`rok-tools-cli`.
 
 - `--json` prints only the Tool's output, as JSON, on stdout.
 - `-C DIR` runs as if the command was started in `DIR`.
