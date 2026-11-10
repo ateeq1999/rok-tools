@@ -107,6 +107,8 @@ pub mod snapshot;
 pub mod summarize;
 #[cfg(feature = "template")]
 pub mod template;
+#[cfg(feature = "tokens")]
+pub mod tokens;
 #[cfg(feature = "write")]
 pub mod write;
 
