@@ -21,7 +21,7 @@ default = []
 # ── Tool groups ──────────────────────────────────────────────────────────────
 fs = ["read", "write", "patch", "mv", "cp", "rm", "mkdir", "snapshot", "restore"]
 search = ["grep", "replace", "scan"]
-code = ["summarize", "extract", "diff", "lint", "import", "refactor", "deps", "boilerplate", "dead-code", "loc"]
+code = ["summarize", "extract", "diff", "lint", "import", "refactor", "deps", "boilerplate", "dead-code", "loc", "tokens"]
 template = ["dep:tera"]
 vcs = ["git"]
 # Every Tool, including the opt-in `bash` and `http`. `runner` and `config` stay separate.
@@ -50,6 +50,7 @@ deps = ["_walk", "dep:regex"]
 boilerplate = []
 dead-code = ["_walk", "dep:regex"]
 loc = ["_walk"]
+tokens = []
 git = []
 # Opt-in only: runs arbitrary shell commands.
 bash = []

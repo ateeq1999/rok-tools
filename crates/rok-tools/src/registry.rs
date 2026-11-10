@@ -152,6 +152,8 @@ pub fn registry() -> Vec<ToolEntry> {
     tools.push(entry::<crate::dead_code::DeadCode>());
     #[cfg(feature = "loc")]
     tools.push(entry::<crate::loc::Loc>());
+    #[cfg(feature = "tokens")]
+    tools.push(entry::<crate::tokens::Tokens>());
     #[cfg(feature = "template")]
     tools.push(entry::<crate::template::Template>());
     #[cfg(feature = "git")]
@@ -187,6 +189,7 @@ pub const ALL_TOOLS: &[&str] = &[
     "boilerplate",
     "dead-code",
     "loc",
+    "tokens",
     "template",
     "git",
     "bash",

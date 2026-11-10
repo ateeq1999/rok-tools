@@ -41,7 +41,7 @@ Calls are synchronous; from async code, use `spawn_blocking`.
 | --- | --- |
 | `fs` | read, write, patch, mv, cp, rm, mkdir, snapshot, restore |
 | `search` | grep, replace, scan |
-| `code` | summarize, extract, diff, lint, import, refactor, deps, boilerplate, dead-code, loc |
+| `code` | summarize, extract, diff, lint, import, refactor, deps, boilerplate, dead-code, loc, tokens |
 | `template` | template |
 | `vcs` | git |
 | `bash`, `http` | opt-in only: in no group, enable them by name or with `full` |
@@ -62,6 +62,7 @@ cargo install rok-tools-cli          # the `rok-tools` binary, every Tool
 rok-tools list
 rok-tools grep TODO src --ext rs
 rok-tools loc --check                # exit 1 if any file exceeds its Line limit
+rok-tools tokens --check             # exit 1 if a generated design-tokens file is stale
 rok-tools refactor old_name new_name src --dry-run
 rok-tools run -f payload.json        # run a JSON Payload of Steps
 ```
@@ -87,6 +88,11 @@ exclude = ["**/generated/**"]
 [[tools.loc.override]]
 path = "src/schema.rs"
 max_lines = 1500                # or 0 to exempt the file
+
+[tools.tokens]                  # `tokens.json` → web CSS, Dart and Rust tokens
+css = "apps/web/src/tokens.css"
+dart = "apps/mobile/lib/app/core/theme/tokens.g.dart"
+rust = "apps/desktop/src/shared/tokens.rs"
 
 [tools.grep]
 ignore_case = true

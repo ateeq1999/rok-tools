@@ -54,7 +54,7 @@ fn list_shows_tools() {
         .success()
         .stdout(predicate::str::contains("dead-code"));
     let rows = json_out(rok_tools(&dir).args(["list", "--json"]));
-    assert_eq!(rows.as_array().unwrap().len(), 26);
+    assert_eq!(rows.as_array().unwrap().len(), 27);
     assert!(
         rows.as_array()
             .unwrap()
